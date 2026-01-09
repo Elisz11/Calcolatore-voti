@@ -75,7 +75,7 @@
                         <div class="border-t-2 border-gray-200 pt-6">
                             <label class="block text-lg font-semibold text-gray-700 mb-3">Obiettivo</label>
                             <input type="number" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-indigo-500 focus:outline-none text-lg" min="0" max="10" pattern="[0-9]+(\.[0-9]{1,2})?" v-model="obiettivo" @keyup.enter="calcolaObiettivo">
-                            <button class="w-full mt-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 border-0 text-white font-semibold py-3 px-6 transition duration-200" @click="calcolaObiettivo">Inserisci</button>
+                            <button class="w-full mt-3 rounded-xl bg-blue-500 hover:bg-blue-600 border-0 text-white font-semibold py-3 px-6 transition duration-200" @click="calcolaObiettivo">Inserisci</button>
                         </div>
                     </div>
                 </div>
