@@ -58,29 +58,56 @@
 </script>
 
 <template>
-    <div class="flex columns-3 justify-between *:flex *:flex-col *:w-full">
-        <div class="p-4 gap-1">
-            <label>Voto</label>
-            <input type="number" class=" border rounded-lg" v-model="voto" min="0" max="10" pattern="[0-9]+(\.[0-9]{1,2})?" @keyup.enter="inserisci">
-            <button class="rounded-lg bg-blue-400 border" @click="inserisci">Inserisci</button>
+    <div class="min-h-screen from-blue-50 to-indigo-100 p-8">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-5xl font-bold text-gray-800 mb-12 text-center">Calcolatore Media Voti</h1>
+            
+            <div class="grid grid-cols-3 gap-6">
+                <!-- Input Section -->
+                <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-lg font-semibold text-gray-700 mb-3">Voto</label>
+                            <input type="number" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-blue-500 focus:outline-none text-lg" v-model="voto" min="0" max="10" pattern="[0-9]+(\.[0-9]{1,2})?" @keyup.enter="inserisci">
+                            <button class="w-full mt-3 rounded-xl bg-blue-500 hover:bg-blue-600 border-0 text-white font-semibold py-3 px-6 transition duration-200" @click="inserisci">Inserisci</button>
+                        </div>
 
-            <label>Obiettivo</label>
-            <input type="number" class=" border rounded-lg" min="0" max="10" pattern="[0-9]+(\.[0-9]{1,2})?" v-model="obiettivo">
-            <button class="rounded-lg bg-blue-400 border" @click="calcolaObiettivo">Inserisci</button>
-        </div>
-        <div>
-            <div v-for="i in voti" class="w-full flex justify-between p-4 gap-2 border-b">
-                <span>{{ i.id }}.</span>
-                <span class=" text-5xl">{{ i.value }}</span>
-                <button class="border rounded-lg bg-red-500 p-2" @click="rimuovi(i.id)">Rimuovi</button>
+                        <div class="border-t-2 border-gray-200 pt-6">
+                            <label class="block text-lg font-semibold text-gray-700 mb-3">Obiettivo</label>
+                            <input type="number" class="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:border-indigo-500 focus:outline-none text-lg" min="0" max="10" pattern="[0-9]+(\.[0-9]{1,2})?" v-model="obiettivo" @keyup.enter="calcolaObiettivo">
+                            <button class="w-full mt-3 rounded-xl bg-indigo-500 hover:bg-indigo-600 border-0 text-white font-semibold py-3 px-6 transition duration-200" @click="calcolaObiettivo">Inserisci</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Votes List -->
+                <div class="bg-white rounded-2xl shadow-xl p-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Voti Inseriti</h2>
+                    <div class="space-y-2 max-h-96 overflow-y-auto">
+                        <div v-if="voti.length === 0" class="text-center text-gray-400 py-12">
+                            Nessun voto
+                        </div>
+                        <div v-for="i in voti" :key="i.id" class="flex justify-between items-center bg-gray-50 p-4 rounded-xl hover:bg-gray-100 transition border border-gray-200">
+                            <span class="text-gray-600 font-medium">{{ i.id }}.</span>
+                            <span class="text-4xl font-bold text-blue-600">{{ i.value }}</span>
+                            <button class="rounded-lg bg-red-500 hover:bg-red-600 text-white px-4 py-2 border-0 font-medium transition" @click="rimuovi(i.id)">Rimuovi</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+                    <div class="bg-linear-to-br from-blue-50 to-blue-100 rounded-xl p-6">
+                        <h1 class="text-gray-700 font-semibold text-sm mb-2">Media</h1>
+                        <span class="text-5xl font-bold text-blue-600">{{ media }}</span>
+                    </div>
+
+                    <div class="bg-linear-to-br from-indigo-50 to-indigo-100 rounded-xl p-6">
+                        <h1 class="text-gray-700 font-semibold text-sm mb-2">Voto necessario per obiettivo</h1>
+                        <span class="text-5xl font-bold text-indigo-600">{{ votoNecessario }}</span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div>
-            <h1>Media:</h1>
-            <span>{{media}}</span>
-
-            <h1>Voto necessario per obiettivo</h1>
-            <span>{{ votoNecessario }}</span>
         </div>
     </div>
 </template>
